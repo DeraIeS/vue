@@ -1,0 +1,41 @@
+{
+	"name": "project",
+	"version": "1.0.0",
+	"description": "Project by Thomas Kotowicz",
+	"author": "Thomas Kotowicz <kotowicztom@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:DeraIeS/baseFiles.git"
+	},
+	"scripts": {},
+	"devDependencies": {
+		"babel-preset-es2015": "^6.24.1",
+		"babelify": "^7.3.0",
+		"browser-sync": "~2.11.x",
+		"gulp": "^3.9.1",
+		"gulp-concat": "~2.6.x",
+		"gulp-sass": "~3.1.x",
+		"gulp-autoprefixer": "~4.0.x",
+		"gulp-plumber": "~1.1.x",
+		"gulp-notify": "~3.0.x",
+		"gulp-rename": "~1.2.x",
+		"gulp-cssnano": "~2.1.x",
+		"dateformat": "~2.0.x",
+		"gulp-header": "~1.8.x",
+		"gulp-rev": "^7.1.2",
+		"gulp-filter": "~5.0.x",
+		"gulp-rev-collector": "^1.2.2",
+		"modify-filename": "^1.1.0",
+		"through2": "^2.0.3",
+		"gulp-jshint": "~2.0.x",
+		"jshint": "~2.9.x",
+		"jshint-stylish": "~2.2.x",
+		"gulp-uglify": "~3.0.x",
+		"browserify": "^14.4.0",
+		"vinyl-buffer": "^1.0.0",
+		"vinyl-source-stream": "^1.1.0",
+		"susy": "~2.2.x",
+		"gulp-sourcemaps": "~2.6.x"
+	},
+	"dependencies": {}
+}

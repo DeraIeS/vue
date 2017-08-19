@@ -1,0 +1,164 @@
+// ==========================================================================
+//  Typography
+// ==========================================================================
+
+//
+// Font size in rems
+//
+@mixin rem($target, $context: 16) {
+	font-size: $target + px;
+	font-size: convert($target, $context, rem);
+}
+
+//
+// Hide the text of an element e.g. for image replacement
+//
+@mixin hide-text {
+	border: 0;
+	font: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+}
+
+//
+// Sets word wrapping properties
+//
+@mixin word-wrap($wrap: break-word) {
+	overflow-wrap: $wrap;
+	word-wrap: $wrap;
+
+	@if $wrap == break-word {
+		word-break: break-all;
+	} @else {
+		word-break: $wrap;
+	}
+}
+
+//
+// Sets hyphenation styles
+//
+@mixin hyphens($hyphens: manual) {
+	hyphens: $hyphens;
+}
+
+//
+// Set an element to hyphenate content
+//
+@mixin hyphenate() {
+	@include word-wrap();
+	@include hyphens(auto);
+}
+
+//
+// Set single line ellipsis
+//
+@mixin ellipsis($width: 100%) {
+	display: inline-block;
+	max-width: $width;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+}
+
+//
+// Display side text
+//
+@mixin side-text($text: '') {
+  position: relative;
+
+	&:after,
+  &:before {
+    @include vertical-align;
+
+    position: absolute;
+    top: 40%;
+    display: block;
+    height: 15rem;
+    width: 15rem;
+    font-family: $alt-font;
+    font-weight: $bold-weight;
+    content: $text;
+    text-align: center;
+    z-index: -1;
+  }
+
+  &:before {
+    left: -4.5rem;
+    transform: rotate(-90deg);
+  }
+
+  &:after {
+    right: -4.5rem;
+    transform: rotate(90deg);
+  }
+}
+
+//
+// Display side text on left
+//
+@mixin side-text-left($text: '') {
+  position: relative;
+
+  &:before {
+    @include vertical-align;
+
+    position: absolute;
+    top: 40%;
+    display: block;
+    height: 15rem;
+    width: 15rem;
+    font-family: $alt-font;
+    font-weight: $bold-weight;
+    content: $text;
+    text-align: center;
+    z-index: -1;
+  }
+
+  &:before {
+    left: -4.5rem;
+    transform: rotate(-90deg);
+  }
+}
+
+//
+// Display side text on right
+//
+@mixin side-text-right($text: '') {
+  position: relative;
+
+  &:after {
+    @include vertical-align;
+
+    position: absolute;
+    top: 40%;
+    display: block;
+    height: 15rem;
+    width: 15rem;
+    font-family: $alt-font;
+    font-weight: $bold-weight;
+    content: $text;
+    text-align: center;
+    z-index: -1;
+  }
+
+  &:after {
+    right: -4.5rem;
+    transform: rotate(90deg);
+  }
+}
+
+//
+// Generate alphabetical side text
+//
+@mixin alphabet-side-text($prefix: '') {
+  $alphabet: 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+             'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+             'u', 'v', 'w', 'x', 'y', 'z', 'all';
+
+  @for $i from 1 through length($alphabet) {
+    > .#{$prefix}-#{nth($alphabet, $i)} {
+      @include side-text(to-upper-case(nth($alphabet, $i)));
+    }
+  }
+}

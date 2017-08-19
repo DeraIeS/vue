@@ -1,0 +1,88 @@
+// ==========================================================================
+//  Helpers
+// ==========================================================================
+
+
+//
+// Variables
+//
+
+$container-width: 0rem;
+$container-padding: 0rem;
+$gutter: 2rem;
+
+
+//
+// Fonts
+//
+$header-font: "";
+$body-font: "";
+$alt-font: "";
+
+//
+// Font weights
+//
+$bold-weight: 700;
+$semibold-weight: 600;
+$medium-weight: 500;
+$regular-weight: 400;
+$light-weight: 300;
+$extralight-weight: 200;
+
+
+//
+// Breakpoints
+//
+$bp-xsm: 320px;
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xlg: 1500px;
+$bp-xxlg: 1780px;
+
+
+//
+// Functions
+//
+@function convert($target, $context: 16, $unit: em) {
+	@if $unit == "em" {
+		@return ($target / $context) * 1em;
+	} @else if $unit == "rem" {
+		@return ($target / $context) * 1rem;
+	} @else if $unit == "%" {
+		@return percentage($target / $context);
+	}
+}
+
+@function opposite-direction($directions) {
+	$opposite-directions: ();
+	$direction-map: (
+		'top': 'bottom',
+		'right': 'left',
+		'bottom': 'top',
+		'left': 'right',
+		'center': 'center',
+		'ltr': 'rtl',
+		'rtl': 'ltr'
+	);
+
+	@each $direction in $directions {
+		$direction: to-lower-case($direction);
+
+		@if map-has-key($direction-map, $direction) {
+			$opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $direction)));
+		} @else {
+			@warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
+		}
+	}
+
+	@return $opposite-directions;
+}
+
+//
+// Mixins
+//
+@import "_mixins/box-model";
+@import "_mixins/typography";
+@import "_mixins/lists";
+@import "_mixins/shapes";
