@@ -212,4 +212,4 @@ gulp.task('watch-and-sync', ['browser-sync', 'watch']);
 
 
 // Default task: runs tasks immediately and continues watching for changes
-//gulp.task('default', ['jshint', 'scripts', 'plugin-scripts', 'plugin-styles', 'styles', 'watch-and-sync']);
+gulp.task('default', ['jshint', 'scripts', 'plugin-scripts', 'plugin-styles', 'styles', 'watch-and-sync']);
