@@ -53,7 +53,7 @@ banner  = '/*!\n'+
 // Hold the name of the last task to run, in case of error
 var taskName;
 
-var handleError = function(err) {
+var handleError = function(err, test) {
 	var file = err.file;
 	var line = err.line;
 
@@ -85,7 +85,13 @@ var handleError = function(err) {
 			if(i > 1) {
 				message += "\n\t\t" + splitErrMessage[i].trim();
 			}
+
+			
 		});
+	}
+
+	if (err._babel) {
+		message += "\n\t\t" + err.codeFrame;
 	}
 
 	return notify().write(message);
@@ -120,9 +126,7 @@ gulp.task('scripts', function() {
 		entries: 'app/theme/js/src/app.js',
 		transform: babelify,
 		debug: true
-	});
-
-	return b.bundle()
+	}).bundle()
 		.on('error', handleError)
 		.pipe(source('app.min.js'))
 		.pipe(plumber({ errorHandler: handleError }))
@@ -147,6 +151,7 @@ gulp.task('scripts', function() {
 
 // JS hint task: Runs JSHint using the options in the .jshintrc file
 gulp.task('jshint', function() {
+
 	gulp.src('app/theme/js/src/**/*.js')
 		.pipe(jshint('.jshintrc'))
 		.pipe(jshint.reporter('jshint-stylish'))
@@ -156,7 +161,7 @@ gulp.task('jshint', function() {
 			} else {
 				return 'JSHint: ' + file.relative + ' (' + file.jshint.results.length + ' errors).';
 			}
-	}));
+		}));		
 });
 
 
@@ -209,7 +214,6 @@ gulp.task('watch', function() {
 
 // Start BrowserSync and watch for changes
 gulp.task('watch-and-sync', ['browser-sync', 'watch']);
-
 
 // Default task: runs tasks immediately and continues watching for changes
 gulp.task('default', ['jshint', 'scripts', 'plugin-scripts', 'plugin-styles', 'styles', 'watch-and-sync']);
