@@ -1,7 +1,10 @@
 /* global Vue */
+//const App = require('./vueComponents/app.vue');
 
 import Test from './components/test';
 import MonsterSlayer from './components/monsterSlayer';
+
+
 
 
 const TK = (() => {
@@ -30,11 +33,22 @@ $(document).ready(() => {
 
   (function() {
 
+    new Vue({
+      el: '#app',
+      render: h => h(App)
+    });
+
+    /*
+
     var data = { status: 'Critical' };
 
-    Vue.component('my-cmp', {
+    // Local components is passed to the Vue instance
+    // Global component can be created with Vue.component('name', {options});
+    var cmp = {
       data: function() {
-        return data;
+        return {
+          status: 'Critical'
+        }
       },  
       template: '<p>Server Status: {{ status }} (<button @click="changeStatus">Change</button>)</p>',
       methods: {
@@ -42,14 +56,20 @@ $(document).ready(() => {
           this.status = 'Normal'
         }
       }
-    });
+    };
 
     new Vue({
       el: '#app',
-
+      components: {
+        'my-cmp': cmp
+      }
     });
 
-/*
+    new Vue({
+      el: '#app2',
+    });
+
+
     new Vue({
       el: '#app',
       data: {

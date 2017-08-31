@@ -39,7 +39,8 @@ buffer         = require('vinyl-buffer'),
 filter      	 = require('gulp-filter'),
 source         = require('vinyl-source-stream'),
 // Modify file name
-modify         = require('modify-filename');
+modify         = require('modify-filename'),
+vueify		   = require('vueify');
 
 
 // Set the banner
@@ -85,8 +86,6 @@ var handleError = function(err, test) {
 			if(i > 1) {
 				message += "\n\t\t" + splitErrMessage[i].trim();
 			}
-
-			
 		});
 	}
 
@@ -124,7 +123,7 @@ gulp.task('scripts', function() {
 
 	const b = browserify({
 		entries: 'app/theme/js/src/app.js',
-		transform: babelify,
+		transform: [babelify, vueify],
 		debug: true
 	}).bundle()
 		.on('error', handleError)
@@ -208,6 +207,7 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', function() {
 	gulp.watch('app/theme/js/plugins/**/*.js', ['plugin-scripts', 'styles']);
 	gulp.watch('app/theme/js/src/**/*.js', ['jshint', 'scripts']);
+	gulp.watch('app/theme/js/src/**/*.vue', ['jshint', 'scripts']);
 	gulp.watch('app/theme/css/**/*.scss', ['styles']);
 	gulp.watch('./*.php', reload);
 });
